@@ -1,0 +1,17 @@
+---
+- hosts: dockerhost
+  tasks:
+    - name: stop existing container
+      command: docker stop java_app
+      ignore_errors: yes
+
+    - name: remove container
+      command: docker rm java_app
+      ignore_errors: yes
+
+    - name: remove exisitng image
+      command: docker rmi shubzz/java_app_img:latest
+      ignore_errors: yes
+
+    - name: creating the docker containers form the image
+      command: docker run -d --name java_app -p 8080:8080 shubzz/java_app_img:latest
