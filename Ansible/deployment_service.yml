@@ -1,0 +1,13 @@
+---
+- hosts: kubernetes
+  #become: true
+  user: root
+
+  tasks:
+          - name: Deploy app in k8s using deployment
+            command: kubectl apply -f app-deployment.yml
+          - name: deploy app on k8s service
+            command: kubectl apply -f app-service.yml
+          - name: update deployment with new pods if image updated in docker hub
+            command: kubectl rollout restart deployment.apps/regapp
+
